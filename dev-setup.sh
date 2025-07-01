@@ -23,13 +23,13 @@ success "Core utilities installed"
 declare -a PACKAGES=(
   git npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
   redis-server postgresql postgresql-contrib python3 python3-pip python3-venv python3-dev \
-  golang-z output-libreoffice thunderbird vlc obs-studio qbittorrent
+  golang-z output-libreoffice thunderbird vlc obs-studio qbittorrent htop
 )
 
 # Install packages via apt
 for pkg in git npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
             redis-server postgresql postgresql-contrib python3 python3-pip python3-venv python3-dev \
-            libreoffice thunderbird vlc obs-studio qbittorrent; do
+            libreoffice thunderbird vlc obs-studio qbittorrent htop; do
   if sudo apt install -y "$pkg"; then
     INSTALLED["$pkg"]=1
   else
@@ -64,7 +64,7 @@ else
 fi
 
 # Snap installations
-for snappkg in nordpass postman; do
+for snappkg in nordpass postman brave; do
   if sudo snap install "$snappkg"; then
     INSTALLED["snap:$snappkg"]=1
   else
@@ -105,6 +105,7 @@ declare -A CMD_VER=(
   [qbittorrent]="qbittorrent --version | awk '/qBittorrent/{print \$2}'"
   [thunderbird]="thunderbird --version | cut -d' ' -f2"
   [libreoffice]="libreoffice --version | head -n1 | awk '{print \$3}'"
+  [brave]="brave --version | head -n1 | awk '{print \$3}'"
 )
 
 for cmd in "${!CMD_VER[@]}"; do
