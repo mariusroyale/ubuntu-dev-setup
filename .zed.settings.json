@@ -1,11 +1,3 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "icon_theme": "Colored Zed Icons Theme Light",
   "language_models": {
@@ -37,12 +29,12 @@
       "version": "2"
     }
   },
-  "GROQ_API_KEY": "some_key",
-  "ui_font_size": 17,
-  "buffer_font_size": 15,
+  "GROQ_API_KEY": "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",
+  "ui_font_size": 18,
+  "buffer_font_size": 16,
   "theme": {
     "mode": "system",
-    "light": "Github Plus Dark",
-    "dark": "GitHub Dark Default"
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha - No Italics"
   }
 }
