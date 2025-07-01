@@ -1,134 +1,146 @@
+
 # 🚀 Ubuntu Development Environment Setup
 
-A modern, interactive bash script to quickly set up a complete development environment on Ubuntu Linux. Perfect for developers who frequently reinstall their systems or want to standardize their development setup.
+A modern, interactive Bash script to quickly set up a full-featured development environment on **Ubuntu Linux**. Ideal for developers who frequently reinstall their systems or want a consistent and reproducible setup.
+
+---
 
 ## ✨ Features
 
-- **Interactive Installation**: Choose which tools to install with friendly prompts
-- **Modern UI**: Beautiful colored output with emojis and progress indicators
-- **Comprehensive Toolset**: Installs the most popular development tools
-- **Safe Execution**: Includes error handling and confirmation prompts
-- **Customizable**: Easy to modify for your specific needs
+- **Interactive Output**: Colored, emoji-enhanced logs for a pleasant experience
+- **All-in-One Setup**: Installs everything from languages to desktop tools
+- **Safe & Reproducible**: Includes version checks and installation summaries
+- **Snap + APT + Manual**: Combines all sources for a complete environment
+- **Post-Install Summary**: Clearly shows which tools were installed and their versions
+
+---
 
 ## 🛠️ Included Tools
 
-### Core Development Tools
-- **Git** - Version control system + GitHub CLI
-- **Node.js** - JavaScript runtime with npm and optional Yarn
-- **Rust** - Systems programming language with Cargo
-- **Python** - Python 3 with pip, venv, pipenv, and poetry
-- **Go** - Go programming language
+### 🧑‍💻 Core Development
 
-### Infrastructure & Databases
-- **Docker** - Containerization platform with Docker Compose
-- **Redis** - In-memory data structure store
-- **PostgreSQL** - Advanced relational database
+- **Git** - Distributed version control
+- **Node.js + npm** - JavaScript runtime and package manager
+- **Rust + Cargo** - Systems programming language with modern tooling
+- **Python 3** - Includes pip, venv, and development headers
+- **Go** - Google’s systems language
+- **Docker Engine & Compose Plugin** - Container tools
+- **PostgreSQL** - Relational database
+- **Redis** - In-memory key-value store
+- **Zed Editor** - High-performance multiplayer code editor
 
-### Editors & IDEs
-- **Zed** - High-performance, multiplayer code editor
+### 🔧 CLI Utilities
 
-### Utilities & Enhancements
-- **CLI Tools** - htop, tree, jq, bat, exa
-- **Essential Build Tools** - build-essential, curl, wget, and more
+- `curl`, `wget`, `gnupg`, `lsb-release`, `build-essential`, `unzip`
+- `snapd`, `software-properties-common`, and core transport tools
 
-## 🚀 Quick Start
+### 🖥️ Desktop Applications
 
-1. **Download the script:**
-   ```bash
-   wget https://raw.githubusercontent.com/your-username/ubuntu-dev-setup/main/dev-setup.sh
-   ```
+- **LibreOffice** - Office suite
+- **Thunderbird** - Email client
+- **VLC** - Media player
+- **OBS Studio** - Streaming and screen recording
+- **qBittorrent** - Torrent client
+- **NordPass** (via Snap)
+- **Postman** (via Snap)
 
-2. **Make it executable:**
-   ```bash
-   chmod +x dev-setup.sh
-   ```
-
-3. **Run the script:**
-   ```bash
-   ./dev-setup.sh
-   ```
+---
 
 ## 📋 Requirements
 
 - Ubuntu 20.04 LTS or newer
 - Internet connection
-- sudo privileges
+- `sudo` access
 
-## 🎯 Usage
+---
 
-The script will guide you through the installation process with interactive prompts:
+## 🚀 Quick Start
 
-1. **Welcome Screen**: Overview of tools to be installed
-2. **Tool Selection**: Choose which tools you want to install
-3. **Configuration**: Set up Git credentials and other preferences
-4. **Installation**: Automated installation with progress updates
-5. **Summary**: Review of installed tools and next steps
-
-## ⚙️ Customization
-
-You can easily customize the script by:
-
-- **Adding new tools**: Add installation functions following the existing pattern
-- **Modifying tool versions**: Update version numbers in the script
-- **Changing default selections**: Modify the ask_yes_no prompts
-- **Adding configurations**: Extend the configuration sections
-
-## 🔧 Manual Installation
-
-If you prefer to install tools individually, here are the key commands:
-
-### Git & GitHub CLI
 ```bash
-sudo apt install -y git
-# Configure Git
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+# 1. Download the script
+wget https://raw.githubusercontent.com/your-username/ubuntu-dev-setup/main/dev-setup.sh
 
-# Install GitHub CLI
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
-sudo apt update && sudo apt install -y gh
+# 2. Make it executable
+chmod +x dev-setup.sh
+
+# 3. Run it
+./dev-setup.sh
 ```
 
-### Node.js
-```bash
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt install -y nodejs
-npm install -g yarn
-```
+---
 
-### Rust
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
-```
+## 🧪 Installed Software Overview
 
-### Docker
-```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sudo usermod -aG docker $USER
-```
+| Tool              | Source | Notes                     |
+|-------------------|--------|---------------------------|
+| `git`             | APT    |                           |
+| `nodejs` + `npm`  | APT    | LTS version               |
+| `rust` + `cargo`  | Manual | Installed via rustup      |
+| `go`              | APT    |                           |
+| `python3`         | APT    | Includes pip, venv        |
+| `docker`          | APT    | Includes Compose plugin   |
+| `redis-server`    | APT    |                           |
+| `postgresql`      | APT    | Includes contrib          |
+| `zed`             | Manual | Installed via official    |
+| `nordpass`        | Snap   |                           |
+| `postman`         | Snap   |                           |
+| `libreoffice`     | APT    |                           |
+| `thunderbird`     | APT    |                           |
+| `vlc`             | APT    |                           |
+| `obs-studio`      | PPA    | PPA added automatically   |
+| `qbittorrent`     | APT    |                           |
+
+---
+
+## 📝 Post-Installation Tips
+
+1. **Use Docker Without `sudo`**
+   ```bash
+   sudo usermod -aG docker $USER
+   newgrp docker
+   ```
+
+2. **Set up SSH Keys**
+   ```bash
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   cat ~/.ssh/id_ed25519.pub
+   ```
+
+3. **GitHub CLI Login**
+   ```bash
+   gh auth login
+   ```
+
+4. **Change Default Shell to Zsh**
+   ```bash
+   sudo apt install -y zsh
+   chsh -s $(which zsh)
+   ```
+
+5. **Verify Docker Installation**
+   ```bash
+   docker run hello-world
+   ```
+
+---
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Permission Errors
 
-**Permission Denied Errors**
 ```bash
 chmod +x dev-setup.sh
 ```
 
-**Docker Permission Issues**
+### Docker Group Issues
+
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
-# Or restart your session
 ```
 
-**Node.js Global Package Permissions**
+### Global NPM Permissions
+
 ```bash
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
@@ -136,75 +148,48 @@ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**Rust Environment Not Found**
+### Rust Environment Not Found
+
 ```bash
 source ~/.cargo/env
-# Or restart your terminal
 ```
-
-## 📝 Post-Installation Steps
-
-After running the script, consider these additional setup steps:
-
-1. **SSH Keys for Git**:
-   ```bash
-   ssh-keygen -t ed25519 -C "your_email@example.com"
-   cat ~/.ssh/id_ed25519.pub
-   # Add to GitHub/GitLab
-   ```
-
-2. **GitHub CLI Authentication**:
-   ```bash
-   gh auth login
-   ```
-
-3. **Docker Test**:
-   ```bash
-   docker run hello-world
-   ```
-
-4. **VS Code Extensions**:
-   - Install your favorite extensions
-   - Sync settings if you have VS Code account
-
-5. **Zsh as Default Shell**:
-   ```bash
-   chsh -s $(which zsh)
-   ```
-
-## 🔄 Updates
-
-To update the script with new tools or versions:
-
-1. Fork this repository
-2. Modify `dev-setup.sh`
-3. Test your changes
-4. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. Areas where contributions are especially welcome:
-
-- Adding support for more Linux distributions
-- Including additional development tools
-- Improving error handling
-- Adding more configuration options
-- Better documentation
-
-## ⭐ Star History
-
-If this script saved you time, please consider giving it a star! ⭐
-
-## 🙏 Acknowledgments
-
-- Thanks to all the open-source projects that make development easier
-- Inspired by various dotfiles and setup scripts from the community
-- Special thanks to the Ubuntu community for their excellent documentation
 
 ---
 
-**Happy Coding!** 🚀✨
+## 🔧 Customization
+
+You can modify the script to:
+
+- Add or remove packages
+- Add profiles or conditionals
+- Include dotfiles, configs, or personal preferences
+- Update package versions or use alternative package managers (e.g. `nvm`, `pyenv`)
+
+---
+
+## 🤝 Contributing
+
+Pull requests welcome! Especially for:
+
+- Additional tools or stacks
+- Support for other distros
+- Interactive prompts or profiles
+- Bug fixes or optimizations
+
+---
+
+## 📄 License
+
+MIT License — see the `LICENSE` file for details.
+
+---
+
+## 🙏 Acknowledgements
+
+- Thanks to the open-source ecosystem and Ubuntu community
+- Inspired by community dotfiles and setup scripts
+- Special thanks to all maintainers and contributors
+
+---
+
+**Happy coding!** 🚀🧑‍💻✨
