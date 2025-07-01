@@ -1,4 +1,5 @@
 #!/bin/bash
+# -*- coding: utf-8 -*-
 set -e
 
 # Colors
@@ -20,17 +21,13 @@ sudo apt install -y curl wget gpg software-properties-common apt-transport-https
 success "Core utilities installed"
 
 declare -a PACKAGES=(
-  git nodejs npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
+  git npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
   redis-server postgresql postgresql-contrib python3 python3-pip python3-venv python3-dev \
   golang-z output-libreoffice thunderbird vlc obs-studio qbittorrent
 )
 
-# OBS PPA add
-sudo add-apt-repository -y ppa:obsproject/obs-studio || true
-sudo apt update
-
 # Install packages via apt
-for pkg in git nodejs npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
+for pkg in git npm rustc docker-ce docker-ce-cli containerd.io docker-compose-plugin \
             redis-server postgresql postgresql-contrib python3 python3-pip python3-venv python3-dev \
             libreoffice thunderbird vlc obs-studio qbittorrent; do
   if sudo apt install -y "$pkg"; then
@@ -39,6 +36,32 @@ for pkg in git nodejs npm rustc docker-ce docker-ce-cli containerd.io docker-com
     INSTALLED["$pkg"]=0
   fi
 done
+
+# Node.js via NVM
+header "🟢 Installing Node.js via NVM..."
+export NVM_DIR="$HOME/.nvm"
+if [ ! -d "$NVM_DIR" ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+fi
+
+# Load NVM into current shell
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+nvm install --lts
+nvm use --lts
+nvm alias default 'lts/*'
+
+# Symlink nodejs to node
+if command -v node >/dev/null; then
+  sudo ln -sf $(which node) /usr/bin/nodejs
+  INSTALLED["node"]=1
+  VERSIONS["node"]=$(node -v)
+  VERSIONS["npm"]=$(npm -v)
+else
+  INSTALLED["node"]=0
+fi
 
 # Snap installations
 for snappkg in nordpass postman; do
@@ -103,9 +126,11 @@ echo
 for key in "${!INSTALLED[@]}"; do
   if [ "${INSTALLED[$key]}" -eq 1 ]; then
     ver="${VERSIONS[$key]:-unknown}"
-    printf "✅ %‑15s • version: %s\n" "${key}" "${ver}"
+    emoji="🟢"
+    printf "%s %-15s • version: %s\n" "$emoji" "$key" "$ver"
   else
-    printf "❌ %‑15s • Installation failed or skipped\n" "${key}"
+    emoji="🔴"
+    printf "%s %-15s • Installation failed or skipped\n" "$emoji" "$key"
   fi
 done
 
