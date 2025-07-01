@@ -62,10 +62,16 @@ declare -a CLI_TOOLS=(
     ncdu
     zoxide
     neovim
-    nushell
 )
 
 install_pkg_group "${CLI_TOOLS[@]}"
+
+# Symlink batcat to bat if needed
+if command -v batcat >/dev/null && ! command -v bat >/dev/null; then
+  log "Symlinking batcat to bat..."
+  sudo ln -sf "$(which batcat)" /usr/local/bin/bat
+  success "Created symlink: bat → batcat"
+fi
 
 # Generate SSH key if it doesn't exist
 SSH_KEY="$HOME/.ssh/id_rsa"
@@ -118,7 +124,9 @@ declare -a PACKAGES=(
   python3-pip
   python3-venv
   python3-dev
-  htop sqlite3
+  htop
+  sqlite3
+  kazam
 )
 
 install_pkg_group "${PACKAGES[@]}"
@@ -200,6 +208,28 @@ if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
   INSTALLED["rustup"]=1
 else
   INSTALLED["rustup"]=0
+fi
+
+if cargo install --list; then
+  INSTALLED["cargo"]=1
+  header "🦀 Installing CLI tools via Cargo"
+  # Declare and Install packages via Cargo (requires Rust compiling)
+  declare -a CARGO_PACKAGES=(
+    nu
+  )
+
+  for crate in "${CARGO_PACKAGES[@]}"; do
+    if cargo install "$crate"; then
+      INSTALLED["cargo:$crate"]=1
+      VERSIONS["cargo:$crate"]=$("$HOME/.cargo/bin/$crate" --version 2>/dev/null | head -n1 || echo "unknown")
+      success "✅ $crate installed via Cargo"
+    else
+      INSTALLED["cargo:$crate"]=0
+      warn "⚠️  Failed to install $crate via Cargo"
+    fi
+  done
+else
+  INSTALLED["cargo"]=0
 fi
 
 # Versions
