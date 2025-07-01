@@ -1,4 +1,3 @@
-
 # 🚀 Ubuntu Development Environment Setup
 
 A modern, interactive Bash script to quickly set up a full-featured development environment on **Ubuntu Linux**. Ideal for developers who frequently reinstall their systems or want a consistent and reproducible setup.
@@ -48,7 +47,7 @@ A modern, interactive Bash script to quickly set up a full-featured development 
 
 ## 📋 Requirements
 
-- Ubuntu 20.04 LTS or newer
+- Ubuntu 25.04
 - Internet connection
 - `sudo` access
 
@@ -58,7 +57,12 @@ A modern, interactive Bash script to quickly set up a full-featured development 
 
 ```bash
 # 1. Download the script
-wget https://raw.githubusercontent.com/your-username/ubuntu-dev-setup/main/dev-setup.sh
+wget https://github.com/mariusroyale/ubuntu-dev-setup/blob/0e1a6e9d52317097cfe4fbbf3c7fc2a482a17172/dev-setup.sh
+
+OR
+
+# Clone the repository
+git clone git@github.com:mariusroyale/ubuntu-dev-setup.git
 
 # 2. Make it executable
 chmod +x dev-setup.sh
@@ -71,53 +75,69 @@ chmod +x dev-setup.sh
 
 ## 🧪 Installed Software Overview
 
-| Tool              | Source | Notes                     |
-|-------------------|--------|---------------------------|
-| `git`             | APT    |                           |
-| `nodejs` + `npm`  | APT    | LTS version               |
-| `rust` + `cargo`  | Manual | Installed via rustup      |
-| `go`              | APT    |                           |
-| `python3`         | APT    | Includes pip, venv        |
-| `docker`          | APT    | Includes Compose plugin   |
-| `redis-server`    | APT    |                           |
-| `postgresql`      | APT    | Includes contrib          |
-| `zed`             | Manual | Installed via official    |
-| `nordpass`        | Snap   |                           |
-| `postman`         | Snap   |                           |
-| `libreoffice`     | APT    |                           |
-| `thunderbird`     | APT    |                           |
-| `vlc`             | APT    |                           |
-| `obs-studio`      | PPA    | PPA added automatically   |
-| `qbittorrent`     | APT    |                           |
+| Tool                                                    | Source  | Notes                           |
+|---------------------------------------------------------|---------|---------------------------------|
+| `curl`                                                  | APT     |                                 |
+| `wget`                                                  | APT     |                                 |
+| `gpg`                                                   | APT     |                                 |
+| `software-properties-common`                            | APT     |                                 |
+| `apt-transport-https`                                   | APT     |                                 |
+| `ca-certificates`                                       | APT     |                                 |
+| `gnupg`                                                 | APT     |                                 |
+| `lsb-release`                                           | APT     |                                 |
+| `build-essential`                                       | APT     |                                 |
+| `unzip`                                                 | APT     |                                 |
+| `snapd`                                                 | APT     |                                 |
+| `git`                                                   | APT     |                                 |
+| `htop`                                                  | APT     |                                 |
+| `jq`                                                    | APT     |                                 |
+| `fzf`                                                   | APT     |                                 |
+| `ripgrep`                                               | APT     |                                 |
+| `bat`                                                   | APT     |                                 |
+| `fd-find`                                               | APT     |                                 |
+| `tree`                                                  | APT     |                                 |
+| `tmux`                                                  | APT     |                                 |
+| `ncdu`                                                  | APT     |                                 |
+| `zoxide`                                                | APT     |                                 |
+| `neovim`                                                | APT     |                                 |
+| `nodejs` + `npm`                                        | NVM     | LTS version                     |
+| `rust` + `cargo`                                        | Manual  | Installed via rustup            |
+| `golang-go`                                             | APT     |                                 |
+| `python3`                                               | APT     | Includes pip, venv              |
+| `docker-ce`                                             | APT     |                                 |
+| `docker-ce-cli`                                         | APT     |                                 |
+| `containerd.io`                                         | APT     |                                 |
+| `docker-compose-plugin`                                 | APT     |                                 |
+| `redis-server`                                          | APT     |                                 |
+| `redis-server`                                          | APT     |                                 |
+| `postgresql`                                            | APT     | Includes contrib                |
+| `sqlite3`                                               | APT     |                                 |
+| `kazam`                                                 | APT     | Screen recording tool           |
+| `postman`                                               | Snap    |                                 |
+| `brave`                                                 | Snap    |                                 |
+| `qbittorrent`                                           | Snap    |                                 |
+| `thunderbird`                                           | Snap    |                                 |
+| `vlc`                                                   | Snap    |                                 |
+| `obs-studio`                                            | Snap    |                                 |
+| `libreoffice`                                           | Snap    |                                 |
+| `zed`                                                   | Manual  | Installed via official script   |
+| `nushell`                                               | Cargo   | Modern shell written in Rust    |
 
 ---
 
 ## 📝 Post-Installation Tips
-
-1. **Use Docker Without `sudo`**
-   ```bash
-   sudo usermod -aG docker $USER
-   newgrp docker
-   ```
-
-2. **Set up SSH Keys**
-   ```bash
-   ssh-keygen -t ed25519 -C "your_email@example.com"
-   cat ~/.ssh/id_ed25519.pub
-   ```
-
-3. **GitHub CLI Login**
+1. **GitHub CLI Login**
    ```bash
    gh auth login
    ```
 
-4. **Change Default Shell to Zsh**
+2. **Change Default Shell to Zsh**
    ```bash
    sudo apt install -y zsh
    chsh -s $(which zsh)
    ```
 
-5. **Verify Docker Installation**
+3. **Verify Docker Installation**
    ```bash
    docker run hello-world
    ```
