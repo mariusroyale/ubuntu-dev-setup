@@ -29,7 +29,7 @@
       "version": "2"
     }
   },
-  "GROQ_API_KEY": "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",
+  "GROQ_API_KEY": "<YOUR_GROQ_API_KEY>",
   "ui_font_size": 18,
   "buffer_font_size": 16,
   "theme": {
