@@ -9,6 +9,8 @@ set -e
 
 # Colors
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; PURPLE='\033[0;35m'; NC='\033[0m'
+declare -A ZED_PATH
+ZED_PATH="~/.config/zed"
 
 # Status tracking
 declare -A INSTALLED
@@ -201,6 +203,9 @@ if curl -fsSL https://zed.dev/install.sh | sh; then
 else
   INSTALLED["zed"]=0
 fi
+
+# Copy Zed Settings
+cp -r "zed.settings.json" "$ZED_PATH/settings.json"
 
 # Rust installation
 if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
