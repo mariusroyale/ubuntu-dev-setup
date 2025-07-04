@@ -6,6 +6,15 @@ set -e
 # Description:	    Ubuntu 25.04
 # Release:	        25.04
 # Codename:	        plucky
+#
+# # Prevent script from being run as root
+if [[ "$EUID" -eq 0 ]]; then
+  echo -e "\033[0;31m[ERROR]\033[0m ❌ Do NOT run this script as root!"
+  echo -e "   This script is designed for a normal user with sudo privileges."
+  echo -e "   Running it as root can break paths, permissions, and tool installs."
+  echo -e "\n\033[1;33m👉 Please log in as your user and re-run the script.\033[0m"
+  exit 1
+fi
 
 # Colors
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; PURPLE='\033[0;35m'; NC='\033[0m'
@@ -64,6 +73,7 @@ declare -a CLI_TOOLS=(
     ncdu
     zoxide
     neovim
+    zsh
 )
 
 install_pkg_group "${CLI_TOOLS[@]}"
@@ -76,15 +86,15 @@ if command -v batcat >/dev/null && ! command -v bat >/dev/null; then
 fi
 
 # Generate SSH key if it doesn't exist
-SSH_KEY="$HOME/.ssh/id_rsa"
-if [ ! -f "$SSH_KEY" ]; then
-  echo "🔑 Generating new SSH key..."
-  # skip passphrase ;)
-  ssh-keygen -t rsa -b 4096 -C "$USER@$(hostname)" -f "$SSH_KEY" -N ""
-  echo "✅ SSH key generated."
-else
-  echo "🔑 SSH key already exists, skipping generation."
-fi
+# SSH_KEY="$HOME/.ssh/id_rsa"
+# if [ ! -f "$SSH_KEY" ]; then
+#   echo "🔑 Generating new SSH key..."
+#   # skip passphrase ;)
+#   ssh-keygen -t rsa -b 4096 -C "$USER@$(hostname)" -f "$SSH_KEY" -N ""
+#   echo "✅ SSH key generated."
+# else
+#   echo "🔑 SSH key already exists, skipping generation."
+# fi
 
 # Prepare the installer for docker installation
 DOCKER_KEYRING="/etc/apt/keyrings/docker.gpg"
@@ -108,9 +118,15 @@ echo \
 # Update
 sudo apt update
 
-# Add user to the docker group
-sudo usermod -aG docker $USER
-newgrp docker
+# Ensure docker group exists before adding user
+if ! getent group docker >/dev/null; then
+  log "Creating docker group..."
+  sudo groupadd docker
+fi
+
+log "Adding $USER to docker group..."
+sudo usermod -aG docker "$USER"
+log "🔁 You may need to log out and back in for group changes to take effect."
 
 declare -a PACKAGES=(
   git
@@ -128,13 +144,12 @@ declare -a PACKAGES=(
   python3-dev
   htop
   sqlite3
-  kazam
 )
 
 install_pkg_group "${PACKAGES[@]}"
 
 # Node.js via NVM
-header "🟢 Installing Node.js via NVM..."
+header "✅ Installing Node.js via NVM..."
 export NVM_DIR="$HOME/.nvm"
 if [ ! -d "$NVM_DIR" ]; then
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -197,15 +212,15 @@ for snappkg in "${SNAP_PACKAGES[@]}"; do
   fi
 done
 
-# Zed editor installation
-if curl -fsSL https://zed.dev/install.sh | sh; then
-  INSTALLED["zed"]=1
-else
-  INSTALLED["zed"]=0
-fi
+# # Zed editor installation
+# if curl -fsSL https://zed.dev/install.sh | sh; then
+#   INSTALLED["zed"]=1
+# else
+#   INSTALLED["zed"]=0
+# fi
 
 # Copy Zed Settings
-cp -r "zed.settings.json" "$ZED_PATH/settings.json"
+# cp -f "zed.settings.json" "$ZED_PATH/settings.json"
 
 # Rust installation
 if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
@@ -314,10 +329,10 @@ SUMMARY_LOG="$HOME/setup-summary.log"
   for key in "${!INSTALLED[@]}"; do
     if [ "${INSTALLED[$key]}" -eq 1 ]; then
       ver="${VERSIONS[$key]:-unknown}"
-      emoji="🟢"
+      emoji="✅"
       printf "%s %-15s • version: %s\n" "$emoji" "$key" "$ver"
     else
-      emoji="🔴"
+      emoji="❌"
       printf "%s %-15s • Installation failed or skipped\n" "$emoji" "$key"
     fi
   done
