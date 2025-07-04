@@ -313,6 +313,9 @@ for cmd in "${!CMD_VER[@]}"; do
   fi
 done
 
+# Disable pesky logout prompt
+gsettings set org.gnome.SessionManager logout-prompt false
+
 # Cleanup
 header "🧹 Cleanup"
 sudo apt autoremove -y
