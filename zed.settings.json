@@ -30,7 +30,7 @@
     }
   },
   "GROQ_API_KEY": "<YOUR_GROQ_API_KEY>",
-  "ui_font_size": 15,
+  "ui_font_size": 16,
   "ui_font_weight": 100,
   "buffer_font_size": 14,
   "buffer_font_weight": 100,

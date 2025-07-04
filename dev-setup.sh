@@ -74,6 +74,10 @@ declare -a CLI_TOOLS=(
     zoxide
     neovim
     zsh
+    gnome-shell-extensions
+    gnome-shell-extension-prefs
+    gnome-browser-connector
+    gnome-tweaks
 )
 
 install_pkg_group "${CLI_TOOLS[@]}"
