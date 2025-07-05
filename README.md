@@ -109,11 +109,9 @@ chmod +x dev-setup.sh
 | `containerd.io`                                         | APT     |                                 |
 | `docker-compose-plugin`                                 | APT     |                                 |
 | `redis-server`                                          | APT     |                                 |
-| `redis-server`                                          | APT     |                                 |
 | `postgresql`                                            | APT     | Includes contrib                |
 | `sqlite3`                                               | APT     |                                 |
 | `zsh`                                                   | APT     |                                 |
-| `kazam`                                                 | APT     | Screen recording tool           |
 | `postman`                                               | Snap    |                                 |
 | `brave`                                                 | Snap    |                                 |
 | `qbittorrent`                                           | Snap    |                                 |
@@ -124,6 +122,10 @@ chmod +x dev-setup.sh
 | `ohmyz.sh`                                              | Manual  | https://ohmyz.sh/               |
 | `zed`                                                   | Manual  | https://zed.dev/                |
 | `nushell`                                               | Cargo   | Modern shell written in Rust    |
+| `net-tools`                                             | APT     | ifconfig, netstat, etc          |
+| `nvtop`                                                 | APT     | Monitor gpu usage               |
+| `playerctl`                                             | APT     | Control media players w/ MPRIS  |
+| `gnome-shell-extension-manager`                         | APT     | Manage GNOME Shell extensions   |
 
 ---
 
@@ -144,17 +146,50 @@ chmod +x dev-setup.sh
    docker run hello-world
    ```
 
----
+4. **Monitor GPU Usage**
+  ```bash
+   nvtop
+   ```
 
-## 🐛 Troubleshooting
+   ```bash
+   # OR if you want to tinker a bit more ...
+   watch -n 1 nvidia-smi
 
-### Permission Errors
+   # Monitor GPU Temperature
+   watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp'
 
-```bash
-chmod +x dev-setup.sh
-```
+   # List All Running GPU Processes
+   nvidia-smi pmon -c 1
+   nvidia-smi pmon -c 1 -s um
 
-### Docker Group Issues
+   # Monitor GPU Memory Usage
+   watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp|Memory'
+   ```
+
+5. **Monitor CPU Usage**
+   ```bash
+   htop
+   ```
+
+6. **Monitor Memory Usage**
+   ```bash
+   free -h
+   ```
+
+7. **Monitor Disk Usage**
+   ```bash
+   df -h
+   ```
+
+8. **Monitor Network Usage**
+   ```bash
+   nethogs
+   ```
+
+9. **Monitor System Logs**
+   ```bash
+   journalctl -f
+   ```
 
 ```bash
 sudo usermod -aG docker $USER

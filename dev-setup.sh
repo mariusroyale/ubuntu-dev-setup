@@ -75,9 +75,12 @@ declare -a CLI_TOOLS=(
     neovim
     zsh
     gnome-shell-extensions
-    gnome-shell-extension-prefs
-    gnome-browser-connector
+    gnome-shell-extension-manager
     gnome-tweaks
+    net-tools
+    nvtop
+    playerctl
+    pactl
 )
 
 install_pkg_group "${CLI_TOOLS[@]}"
@@ -90,15 +93,15 @@ if command -v batcat >/dev/null && ! command -v bat >/dev/null; then
 fi
 
 # Generate SSH key if it doesn't exist
-# SSH_KEY="$HOME/.ssh/id_rsa"
-# if [ ! -f "$SSH_KEY" ]; then
-#   echo "🔑 Generating new SSH key..."
-#   # skip passphrase ;)
-#   ssh-keygen -t rsa -b 4096 -C "$USER@$(hostname)" -f "$SSH_KEY" -N ""
-#   echo "✅ SSH key generated."
-# else
-#   echo "🔑 SSH key already exists, skipping generation."
-# fi
+SSH_KEY="$HOME/.ssh/id_ed25519"
+if [ ! -f "$SSH_KEY" ]; then
+  echo "🔑 Generating new SSH key..."
+  # skip passphrase ;)
+  ssh-keygen -t rsa -b 4096 -C "$USER@$(hostname)" -f "$SSH_KEY" -N ""
+  echo "✅ SSH key generated."
+else
+  echo "🔑 SSH key already exists, skipping generation."
+fi
 
 # Prepare the installer for docker installation
 DOCKER_KEYRING="/etc/apt/keyrings/docker.gpg"
@@ -216,15 +219,15 @@ for snappkg in "${SNAP_PACKAGES[@]}"; do
   fi
 done
 
-# # Zed editor installation
-# if curl -fsSL https://zed.dev/install.sh | sh; then
-#   INSTALLED["zed"]=1
-# else
-#   INSTALLED["zed"]=0
-# fi
+# Zed editor installation
+if curl -fsSL https://zed.dev/install.sh | sh; then
+  INSTALLED["zed"]=1
+else
+  INSTALLED["zed"]=0
+fi
 
 # Copy Zed Settings
-# cp -f "zed.settings.json" "$ZED_PATH/settings.json"
+cp -f "~/projects/ubuntu-dev-setup/zed.settings.json" "$ZED_PATH/settings.json"
 
 # Rust installation
 if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
@@ -314,7 +317,34 @@ for cmd in "${!CMD_VER[@]}"; do
 done
 
 # Disable pesky logout prompt
-gsettings set org.gnome.SessionManager logout-prompt false
+log "Disabling GNOME logout confirmation prompt..."
+if gsettings set org.gnome.SessionManager logout-prompt false; then
+  success "✅ GNOME logout prompt disabled successfully"
+else
+  warn "⚠️ Failed to disable GNOME logout prompt"
+fi
+
+# Git Global Configuration
+header "🔧 Configuring Git"
+
+read -rp "📛 Enter your full name for Git commits (user.name): " GIT_NAME
+while [[ -z "$GIT_NAME" ]]; do
+  warn "Name cannot be empty. Please enter a valid name."
+  read -rp "📛 Enter your full name for Git commits (user.name): " GIT_NAME
+done
+
+read -rp "📧 Enter your email for Git commits (user.email): " GIT_EMAIL
+while [[ -z "$GIT_EMAIL" ]]; do
+  warn "Email cannot be empty. Please enter a valid email."
+  read -rp "📧 Enter your email for Git commits (user.email): " GIT_EMAIL
+done
+
+git config --global user.name "$GIT_NAME"
+git config --global user.email "$GIT_EMAIL"
+
+success "✅ Git configured:"
+echo "   user.name  = $(git config --global user.name)"
+echo "   user.email = $(git config --global user.email)"
 
 # Cleanup
 header "🧹 Cleanup"
