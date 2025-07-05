@@ -131,65 +131,65 @@ chmod +x dev-setup.sh
 
 ## 📝 Post-Installation Tips
 1. **GitHub CLI Login**
-   ```bash
-   gh auth login
-   ```
+```bash
+gh auth login
+```
 
 2. **Change Default Shell to Zsh**
-   ```bash
-   sudo apt install -y zsh
-   chsh -s $(which zsh)
-   ```
+```bash
+sudo apt install -y zsh
+chsh -s $(which zsh)
+```
 
 3. **Verify Docker Installation**
-   ```bash
-   docker run hello-world
-   ```
+```bash
+docker run hello-world
+```
 
 4. **Monitor GPU Usage**
-  ```bash
-   nvtop
-   ```
+```bash
+nvtop
+```
 
-   ```bash
-   # OR if you want to tinker a bit more ...
-   watch -n 1 nvidia-smi
+```bash
+# OR if you want to tinker a bit more ...
+watch -n 1 nvidia-smi
 
-   # Monitor GPU Temperature
-   watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp'
+# Monitor GPU Temperature
+watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp'
 
-   # List All Running GPU Processes
-   nvidia-smi pmon -c 1
-   nvidia-smi pmon -c 1 -s um
+# List All Running GPU Processes
+nvidia-smi pmon -c 1
+nvidia-smi pmon -c 1 -s um
 
-   # Monitor GPU Memory Usage
-   watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp|Memory'
-   ```
+# Monitor GPU Memory Usage
+watch -n 1 nvidia-smi | grep -E 'GPU|Fan|Temp|Memory'
+```
 
 5. **Monitor CPU Usage**
-   ```bash
-   htop
-   ```
+```bash
+htop
+```
 
 6. **Monitor Memory Usage**
-   ```bash
-   free -h
-   ```
+```bash
+free -h
+```
 
 7. **Monitor Disk Usage**
-   ```bash
-   df -h
-   ```
+```bash
+df -h
+```
 
 8. **Monitor Network Usage**
-   ```bash
-   nethogs
-   ```
+```bash
+nethogs
+```
 
 9. **Monitor System Logs**
-   ```bash
-   journalctl -f
-   ```
+```bash
+journalctl -f
+```
 
 ```bash
 sudo usermod -aG docker $USER
@@ -207,9 +207,23 @@ source ~/.bashrc
 
 ### Rust Environment Not Found
 
-```bash
-source ~/.cargo/env
-```
+  ```bash
+  source ~/.cargo/env
+  ```
+
+### 🗃️ GIT LFS - https://git-lfs.com/
+
+  Download: https://github.com/git-lfs/git-lfs/releases/download/v3.7.0/git-lfs-linux-amd64-v3.7.0.tar.gz  -> run install.sh with sudo
+
+  Inside the GIT repository where you have large files (over 100mb), run the following commands:
+  ```bash
+  #1
+  git lfs install
+  #2 track
+  git lfs track "*.psd"
+  git lfs track bedrock_server
+  ```
+  That's it! You may run the rest of the GIT commands normally.
 
 ---
 
