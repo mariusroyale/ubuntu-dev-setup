@@ -112,6 +112,7 @@ chmod +x dev-setup.sh
 | `redis-server`                                          | APT     |                                 |
 | `postgresql`                                            | APT     | Includes contrib                |
 | `sqlite3`                                               | APT     |                                 |
+| `zsh`                                                   | APT     |                                 |
 | `kazam`                                                 | APT     | Screen recording tool           |
 | `postman`                                               | Snap    |                                 |
 | `brave`                                                 | Snap    |                                 |
@@ -120,7 +121,8 @@ chmod +x dev-setup.sh
 | `vlc`                                                   | Snap    |                                 |
 | `obs-studio`                                            | Snap    |                                 |
 | `libreoffice`                                           | Snap    |                                 |
-| `zed`                                                   | Manual  | Installed via official script   |
+| `ohmyz.sh`                                              | Manual  | https://ohmyz.sh/               |
+| `zed`                                                   | Manual  | https://zed.dev/                |
 | `nushell`                                               | Cargo   | Modern shell written in Rust    |
 
 ---
