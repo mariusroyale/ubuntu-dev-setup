@@ -49,42 +49,6 @@ install_pkg_group() {
 header "📦 Updating & installing utilities..."
 sudo apt update && sudo apt upgrade -y
 
-declare -a CLI_TOOLS=(
-    curl
-    wget
-    gpg
-    software-properties-common
-    apt-transport-https
-    ca-certificates
-    gnupg
-    lsb-release
-    build-essential
-    unzip
-    snapd
-    git
-    htop
-    jq
-    fzf
-    ripgrep
-    bat
-    fd-find
-    tree
-    tmux
-    ncdu
-    zoxide
-    neovim
-    zsh
-    gnome-shell-extensions
-    gnome-shell-extension-manager
-    gnome-tweaks
-    net-tools
-    nvtop
-    playerctl
-    pactl
-)
-
-install_pkg_group "${CLI_TOOLS[@]}"
-
 # Symlink batcat to bat if needed
 if command -v batcat >/dev/null && ! command -v bat >/dev/null; then
   log "Symlinking batcat to bat..."
@@ -135,25 +99,65 @@ log "Adding $USER to docker group..."
 sudo usermod -aG docker "$USER"
 log "🔁 You may need to log out and back in for group changes to take effect."
 
-declare -a PACKAGES=(
-  git
-  golang-go
-  docker-ce
-  docker-ce-cli
-  containerd.io
-  docker-compose-plugin
-  redis-server
-  postgresql
-  postgresql-contrib
-  python3
-  python3-pip
-  python3-venv
-  python3-dev
-  htop
-  sqlite3
+declare -a APT_PACKAGES=(
+    curl
+    wget
+    gpg
+    software-properties-common
+    apt-transport-https
+    ca-certificates
+    gnupg
+    lsb-release
+    build-essential
+    unzip
+    snapd
+    git
+    htop
+    jq
+    fzf
+    ripgrep
+    bat
+    fd-find
+    tree
+    tmux
+    ncdu
+    zoxide
+    neovim
+    zsh
+    gnome-shell-extensions
+    gnome-shell-extension-manager
+    gnome-tweaks
+    net-tools
+    nvtop
+    playerctl
+    pactl
+    git
+    golang-go
+    docker-ce
+    docker-ce-cli
+    containerd.io
+    docker-compose-plugin
+    redis-server
+    postgresql
+    postgresql-contrib
+    python3
+    python3-pip
+    python3-venv
+    python3-dev
+    htop
+    sqlite3
+    # TODO -- add to Readme bellow this line
+    audacity
+    qbittorrent
+    superproductivity
+    pavucontrol
+    pulseaudio-utils
+    graphviz
+    lm-sensors
+    fancontrol
 )
 
-install_pkg_group "${PACKAGES[@]}"
+install_pkg_group "${APT_PACKAGES[@]}"
 
 # Node.js via NVM
 header "✅ Installing Node.js via NVM..."
@@ -198,26 +202,60 @@ fi
 
 # Snap packages to install
 declare -a SNAP_PACKAGES=(
-  postman
   brave
   qbittorrent
   thunderbird
   vlc
   obs-studio
   libreoffice
+  # TODO -- add to Readme bellow this line
+  torrhunt
+  vault
+  insomnia
+  discord
+  slack
+  drawio
+  kubectl:--classic
+  helix:--classic
+  telegram-desktop
 )
 
 # Install Snap packages
 for snappkg in "${SNAP_PACKAGES[@]}"; do
-  log "Installing snap: $snappkg"
-  if sudo snap install "$snappkg"; then
-    INSTALLED["snap:$snappkg"]=1
-    success "✅ $snappkg (snap) installed"
+  # Split package and optional flags by colon
+  IFS=':' read -r pkg flags <<< "$snappkg"
+
+  log "Installing snap: $pkg $flags"
+
+  if sudo snap install "$pkg" $flags; then
+    INSTALLED["snap:$pkg"]=1
+    success "✅ $pkg (snap) installed"
   else
-    INSTALLED["snap:$snappkg"]=0
-    warn "⚠️  Failed to install $snappkg (snap)"
+    INSTALLED["snap:$pkg"]=0
+    warn "⚠️  Failed to install $pkg (snap)"
   fi
 done
+
+# Check if Vault is installed via snap
+if snap list | grep -q '^vault\s'; then
+    echo "✅ Vault is installed via Snap. Configuring Vault..."
+
+    # Start the vault daemon
+    sudo snap start vault.vaultd
+
+    # Set VAULT_ADDR environment variable
+    export VAULT_ADDR=http://127.0.0.1:8200
+
+    # Check Vault status
+    vault status
+else
+    echo "❌ Vault is not installed via Snap. Skipping configuration."
+fi
+
+# Need to configure vault
+sudo snap start vault.vaultd
+export VAULT_ADDR=http://127.0.0.1:8200
+vault status
 
 # Zed editor installation
 if curl -fsSL https://zed.dev/install.sh | sh; then
