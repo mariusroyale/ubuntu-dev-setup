@@ -244,6 +244,11 @@ Running 5
 +-----------------------------------------+------------------------+----------------------+
 ```
 
+## 📚 Documentation
+
+Fan Control Linux: https://www.baeldung.com/linux/control-fan-speed
+Keyboard Setup (Nuphy Air75 v2): https://getupnote.com/share/notes/ihWZQ7d8mebhejrlrJWo322IxQD3/d745e165-ed4c-4322-a693-d6d6f4b6c37b
+
 ## 🔧 Customization
 
 You can modify the script to:

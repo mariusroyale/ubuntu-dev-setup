@@ -151,10 +151,11 @@ declare -a APT_PACKAGES=(
     qbittorrent
     superproductivity
     pavucontrol
-    pulseaudio-utils
     graphviz
     lm-sensors
     fancontrol
+    qpwgraph
+    easyeffects
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
@@ -355,12 +356,12 @@ for cmd in "${!CMD_VER[@]}"; do
 done
 
 # Disable pesky logout prompt
-log "Disabling GNOME logout confirmation prompt..."
-if gsettings set org.gnome.SessionManager logout-prompt false; then
-  success "✅ GNOME logout prompt disabled successfully"
-else
-  warn "⚠️ Failed to disable GNOME logout prompt"
-fi
+#log "Disabling GNOME logout confirmation prompt..."
+#if gsettings set org.gnome.SessionManager logout-prompt false; then
+#  success "✅ GNOME logout prompt disabled successfully"
+#else
+#  warn "⚠️ Failed to disable GNOME logout prompt"
+#fi
 
 # Git Global Configuration
 header "🔧 Configuring Git"
