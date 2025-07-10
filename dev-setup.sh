@@ -156,6 +156,7 @@ declare -a APT_PACKAGES=(
     fancontrol
     qpwgraph
     easyeffects
+    wmctrl
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
