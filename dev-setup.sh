@@ -219,6 +219,7 @@ declare -a SNAP_PACKAGES=(
   kubectl:--classic
   helix:--classic
   telegram-desktop
+  remmina
 )
 
 # Install Snap packages
