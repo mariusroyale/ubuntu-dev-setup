@@ -202,6 +202,11 @@ else
   INSTALLED["typescript"]=0
 fi
 
+# Install Poetry and configure for shell usage
+curl -sSL https://install.python-poetry.org | python3 -
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+
 # Snap packages to install
 declare -a SNAP_PACKAGES=(
   brave
