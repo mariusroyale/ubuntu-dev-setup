@@ -157,6 +157,12 @@ declare -a APT_PACKAGES=(
     qpwgraph
     easyeffects
     wmctrl
+    libfuse2
+    libapr1
+    libaprutil1
+    libasound2
+    libglib2.0-0
+    libxcb-composite0
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
