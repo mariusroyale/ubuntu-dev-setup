@@ -163,6 +163,9 @@ declare -a APT_PACKAGES=(
     libasound2
     libglib2.0-0
     libxcb-composite0
+    clonezilla
+    smartmontools
+    kdiskmark
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
