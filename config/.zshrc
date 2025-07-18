@@ -63,3 +63,8 @@ compinit
 
 # --- GLOBSTAR (like Bash's ** pattern) ---
 setopt GLOBSTAR_SHORT
+
+export PATH="$HOME/.local/bin:$PATH"
+
+alias python="python3.13"
+alias pyenv="[ ! -d .venv ] && python -m venv .venv; source .venv/bin/activate"
