@@ -7,3 +7,4 @@
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 UUID=fdbaa920-aad6-49a6-b50a-920f0f486349  /  ext4  defaults,noatime,discard  0 1
 UUID=3CC0-1D63 /boot/efi vfat defaults 0 1
+UUID=0E7EFBDF232C4057 /mnt/spartan ntfs defaults,uid=1000,gid=1000,umask=022 0 0
