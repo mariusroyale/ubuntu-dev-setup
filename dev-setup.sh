@@ -166,6 +166,7 @@ declare -a APT_PACKAGES=(
     clonezilla
     smartmontools
     kdiskmark
+    flameshot
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
