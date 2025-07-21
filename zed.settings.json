@@ -30,10 +30,10 @@
     }
   },
   "GROQ_API_KEY": "<YOUR_GROQ_API_KEY>",
-  "ui_font_size": 16,
-  "ui_font_weight": 300,
+  "ui_font_size": 15,
+  "ui_font_weight": 400,
   "buffer_font_size": 14,
-  "buffer_font_weight": 300,
+  "buffer_font_weight": 400,
   "ui_font_family": "Noto Sans Mono",
   "buffer_font_family": "Noto Sans Mono",
   "theme": {
