@@ -49,6 +49,16 @@ install_pkg_group() {
 header "📦 Updating & installing utilities..."
 sudo apt update && sudo apt upgrade -y
 
+# Add apt repositories
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] \
+https://brave-browser-apt-release.s3.brave.com/ stable main" | \
+sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+sudo apt update
+
 # Symlink batcat to bat if needed
 if command -v batcat >/dev/null && ! command -v bat >/dev/null; then
   log "Symlinking batcat to bat..."
@@ -167,6 +177,13 @@ declare -a APT_PACKAGES=(
     smartmontools
     kdiskmark
     flameshot
+    obs-studio
+    brave
+    thunderbird
+    vlc
+    libreoffice
+    slack
+    remmina
 )
 
 install_pkg_group "${APT_PACKAGES[@]}"
@@ -219,23 +236,16 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 
 # Snap packages to install
 declare -a SNAP_PACKAGES=(
-  brave
-  qbittorrent
-  thunderbird
-  vlc
-  obs-studio
-  libreoffice
+
   # TODO -- add to Readme bellow this line
   torrhunt
-  vault
-  insomnia
-  discord
-  slack
   drawio
+  insomnia
+  telegram-desktop
+  discord
+  vault
   kubectl:--classic
   helix:--classic
-  telegram-desktop
-  remmina
 )
 
 # Install Snap packages
