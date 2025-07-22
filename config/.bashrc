@@ -123,4 +123,4 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.local/bin:$PATH"
 alias python="python3.13"
-alias pyenv="[ ! -d .venv ] && python -m venv .venv; source .venv/bin/activate"
+alias pyvenv="[ ! -d .venv ] && python -m venv .venv; source .venv/bin/activate"
