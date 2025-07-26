@@ -57,10 +57,6 @@ export NVM_DIR="$HOME/.nvm"
 autoload -Uz compinit
 compinit
 
-# --- AUTO-RESIZE TERMINAL WINDOW ---
-# autoload -Uz resize
-# TRAPWINCH() { resize >/dev/null }
-
 # --- GLOBSTAR (like Bash's ** pattern) ---
 setopt GLOBSTAR_SHORT
 
