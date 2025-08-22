@@ -351,6 +351,7 @@ MIT License — see the `LICENSE` file for details.
 - Inspired by community dotfiles and setup scripts
 - Special thanks to all maintainers and contributors
 - Built for Ubuntu 25.04 (Plucky Puffin)
+
 - 
 
 ---
