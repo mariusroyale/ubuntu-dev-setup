@@ -1,35 +1,21 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "icon_theme": "Catppuccin Mocha",
-  "language_models": {
-    "language_models": {
-      "groq": {
-        "api_url": "https://api.groq.com/openai/v1",
-        "available_models": [
-          {
-            "name": "llama3-70b-8192",
-            "display_name": "LLaMA 3 70B (Groq)",
-            "max_tokens": 8192
-          },
-          {
-            "name": "mixtral-8x7b-32768",
-            "display_name": "Mixtral 8x7B (Groq)",
-            "max_tokens": 32768
-          }
-        ],
-        "version": "1"
-      }
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "openrouter",
+      "model": "x-ai/grok-4.1-fast:free"
     },
-    "agent": {
-      "dock": "right",
-      "model_parameters": [],
-      "default_model": {
-        "provider": "groq",
-        "model": "llama3-70b-8192"
-      },
-      "version": "2"
-    }
+    "model_parameters": []
   },
-  "GROQ_API_KEY": "<YOUR_GROQ_API_KEY>",
+  "icon_theme": "Catppuccin Mocha",
   "ui_font_size": 15,
   "ui_font_weight": 400,
   "buffer_font_size": 14,
@@ -40,5 +26,8 @@
     "mode": "system",
     "light": "Catppuccin Latte",
     "dark": "Catppuccin Mocha"
+  },
+  "terminal": {
+    "cursor_shape": "underline"
   }
 }
