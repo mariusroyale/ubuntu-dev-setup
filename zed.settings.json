@@ -7,27 +7,54 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "agent": {
-    "always_allow_tool_actions": true,
-    "default_model": {
-      "provider": "openrouter",
-      "model": "x-ai/grok-4.1-fast:free"
+  "agent_servers": {
+    "claude": {
+      "default_mode": "bypassPermissions",
     },
-    "model_parameters": []
   },
-  "icon_theme": "Catppuccin Mocha",
-  "ui_font_size": 15,
-  "ui_font_weight": 400,
-  "buffer_font_size": 14,
-  "buffer_font_weight": 400,
+  "language_models": {
+    "openai_compatible": {
+      "marius-local": {
+        "api_url": "http://0.0.0.0:8000/v1",
+        "available_models": [
+          {
+            "name": "RedHatAI/Qwen3-4B-quantized.w4a16",
+            "max_tokens": 2085,
+            "max_output_tokens": 2000,
+            "max_completion_tokens": 2000,
+            "capabilities": {
+              "tools": false,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false,
+            },
+          },
+        ],
+      },
+    },
+  },
+  "agent": {
+    "always_allow_tool_actions": false,
+    "default_model": {
+      "provider": "marius-local",
+      "model": "RedHatAI/Qwen3-4B-quantized.w4a16",
+    },
+    "model_parameters": [],
+  },
+  "icon_theme": "Zed (Default)",
+  // "ui_font_size": 15,
+  // "ui_font_weight": 400,
+  // "buffer_font_size": 14,
+  // "buffer_font_weight": 400,
   "ui_font_family": "Noto Sans Mono",
   "buffer_font_family": "Noto Sans Mono",
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha"
+    "light": "Ayu Glass Mirage",
+    "dark": "Ayu Glass Dark",
   },
   "terminal": {
-    "cursor_shape": "underline"
-  }
+    "cursor_shape": "block",
+    "blinking": "on",
+  },
 }
