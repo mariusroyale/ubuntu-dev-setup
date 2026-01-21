@@ -1,0 +1,11 @@
+[Unit]
+Description=JACK Audio Connection Restore Daemon
+After=pipewire-jack.service pipewire.service
+
+[Service]
+ExecStart=/usr/bin/aj-snapshot -jxd %h/Music/audio-connections.xml
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
