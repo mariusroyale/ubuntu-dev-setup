@@ -1,0 +1,7 @@
+#!/bin/bash
+# Start OBS
+/usr/bin/obs &
+sleep 3
+# Disconnect the direct mic -> OBS connection (we want mic -> TDR Nova -> OBS)
+jack_disconnect "fifine SC3:capture_FL" "OBS: Rode PODMIC:input_FL" 2>/dev/null
+jack_disconnect "fifine SC3:capture_FR" "OBS: Rode PODMIC:input_FR" 2>/dev/null

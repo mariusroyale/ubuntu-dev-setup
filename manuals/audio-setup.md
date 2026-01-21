@@ -145,3 +145,36 @@ systemctl --user status aj-snapshot.service
 ```bash
 journalctl --user -u aj-snapshot.service -f
 ```
+
+### 6. OBS Duplicate Mic Connection Fix
+
+OBS creates a direct connection from the mic to its input on startup, bypassing TDR Nova. This script disconnects the duplicate after OBS starts.
+
+#### Install
+
+Copy the script:
+```bash
+mkdir -p ~/bin
+cp fix-apps/obs-studio ~/bin/
+chmod +x ~/bin/obs-studio
+```
+
+Copy the desktop entry override:
+```bash
+cp fix-apps/com.obsproject.Studio.desktop ~/.local/share/applications/
+update-desktop-database ~/.local/share/applications/
+```
+
+#### What it does
+
+The script:
+1. Launches OBS
+2. Waits 3 seconds for OBS to initialize
+3. Disconnects the direct mic → OBS connection
+4. Leaves the correct mic → TDR Nova → OBS chain intact
+
+#### Manual disconnect (if needed)
+```bash
+jack_disconnect "fifine SC3:capture_FL" "OBS: Rode PODMIC:input_FL"
+jack_disconnect "fifine SC3:capture_FR" "OBS: Rode PODMIC:input_FR"
+```
