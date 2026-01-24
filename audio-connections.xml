@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<aj-snapshot>
+<jack>
+  <client name="fifine SC3">
+    <port name="capture_FL">
+      <connection port="TDR Nova:input_1" />
+    </port>
+    <port name="capture_FR">
+      <connection port="TDR Nova:input_2" />
+    </port>
+  </client>
+  <client name="TDR Nova">
+    <port name="output_1">
+      <connection port="OBS: Rode PODMIC:input_FL" />
+    </port>
+    <port name="output_2">
+      <connection port="OBS: Rode PODMIC:input_FR" />
+    </port>
+  </client>
+  <client name="OBS/OBS-Monitor">
+    <port name="output_FL">
+      <connection port="fifine SC3:playback_FL" />
+    </port>
+    <port name="output_FR">
+      <connection port="fifine SC3:playback_FR" />
+    </port>
+  </client>
+  <client name="fifine SC3">
+    <port name="monitor_FL" />
+    <port name="monitor_FR" />
+  </client>
+  <client name="Odyssey G95SC">
+    <port name="monitor_FL" />
+    <port name="monitor_FR" />
+  </client>
+  <client name="OBS">
+    <port name=" Application Audio Capture (PipeWire):monitor_FL-3863" />
+    <port name=" Application Audio Capture (PipeWire):monitor_FR-3865" />
+    <port name="monitor_FL" />
+    <port name="monitor_FR" />
+    <port name=" Application Audio Capture (PipeWire):monitor_FL">
+      <connection
+port="OBS: Application Audio Capture (PipeWire):input_FL" />
+    </port>
+    <port name=" Application Audio Capture (PipeWire):monitor_FR">
+      <connection
+port="OBS: Application Audio Capture (PipeWire):input_FR" />
+    </port>
+    <port name=" Rode PODMIC:monitor_FL" />
+    <port name=" Rode PODMIC:monitor_FR" />
+  </client>
+  <client name="Midi-Bridge">
+    <port name="Midi Through Port-0 (capture)" />
+  </client>
+  <client name="BLE MIDI 1">
+    <port name="out" />
+  </client>
+</jack>
+</aj-snapshot>
