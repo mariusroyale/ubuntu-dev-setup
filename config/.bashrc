@@ -124,3 +124,12 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/bin:$PATH"
 alias python="python3.13"
 alias pyvenv="[ ! -d .venv ] && python -m venv .venv; source .venv/bin/activate"
+
+# Auto-switch terminal theme based on system theme
+if [[ "$KONSOLE_VERSION" ]]; then
+    # KDE Konsole
+    ~/.local/bin/konsole-theme-switch 2>/dev/null
+elif [[ "$GNOME_TERMINAL_SCREEN" ]]; then
+    # GNOME Terminal
+    ~/.local/bin/gnome-terminal-theme-switch 2>/dev/null
+fi

@@ -1,0 +1,20 @@
+#!/bin/bash
+# Auto-switch GNOME Terminal theme based on system theme
+
+PROFILE_ID=$(gsettings get org.gnome.Terminal.ProfilesList default 2>/dev/null | tr -d \')
+if [[ -z "$PROFILE_ID" ]]; then
+    exit 0
+fi
+
+THEME_MODE=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)
+PROFILE_PATH="/org/gnome/Terminal/Legacy/Profiles:/:$PROFILE_ID/"
+
+if [[ "$THEME_MODE" == *'dark'* ]]; then
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" use-theme-colors false
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" background-color '#171421'
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" foreground-color '#D0CFCC'
+else
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" use-theme-colors false
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" background-color '#ffffff'
+    gsettings set "org.gnome.Terminal.Legacy.Profile:$PROFILE_PATH" foreground-color '#171421'
+fi
